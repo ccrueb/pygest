@@ -1,5 +1,7 @@
 import smtplib
 import os.path
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
 
 # Check if config exists
 if(not os.path.isfile('.config.txt')):
@@ -15,9 +17,19 @@ else:
     config.close()
 
 # Send email
+fromaddr = email
+toaddr = email
+msg = MIMEMultipart()
+msg['From'] = fromaddr
+msg['To'] = toaddr
+msg['Subject'] = "Daily Pygest: "
+ 
+body = "YOUR MESSAGE HERE"
+msg.attach(MIMEText(body, 'plain'))
+ 
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
-server.login(email, password)
-msg = "YOUR MESSAGE!"
-server.sendmail(email, email, msg)
+server.login(fromaddr, password)
+text = msg.as_string()
+server.sendmail(fromaddr, toaddr, text)
 server.quit()
