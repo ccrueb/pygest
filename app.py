@@ -1,7 +1,10 @@
 import smtplib
 import os.path
+import datetime
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
+
+mydate = datetime.datetime.now()
 
 # Check if config exists
 if(not os.path.isfile('.config.txt')):
@@ -20,9 +23,9 @@ else:
 fromaddr = email
 toaddr = email
 msg = MIMEMultipart()
-msg['From'] = fromaddr
+msg['From'] = "PyGest"
 msg['To'] = toaddr
-msg['Subject'] = "Daily Pygest: "
+msg['Subject'] = "Daily PyGest: " + mydate.strftime("%b %d")
  
 body = "YOUR MESSAGE HERE"
 msg.attach(MIMEText(body, 'plain'))
